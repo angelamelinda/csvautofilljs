@@ -1,9 +1,9 @@
 import CsvAutoFill from '../src/csvautofilljs'
 
 /**
- * Dummy test
+ * CsvAutoFill
  */
-describe('Dummy test', () => {
+describe('CsvAutoFill', () => {
   it('works if true is truthy', () => {
     expect(true).toBeTruthy()
   })
