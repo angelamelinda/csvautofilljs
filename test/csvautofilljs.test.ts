@@ -1,16 +1,32 @@
-import CsvAutoFill from '../src/csvautofilljs'
-
+import CsvAutoFill, { objectInArrayIsExist, arrayToCsv } from '../src/csvautofilljs'
+import * as helper from '../helper'
 /**
  * CsvAutoFill
  */
 describe('CsvAutoFill', () => {
+  let props = helper.mockData()
+
   it('works if true is truthy', () => {
     expect(true).toBeTruthy()
   })
-  it('return generateFile', () => {
-    expect(CsvAutoFill.generateFile()).toBe('generateFile')
-  })
+
   it('return uploadFile', () => {
     expect(CsvAutoFill.uploadFile()).toBe('uploadFile')
+  })
+
+  it('return true if object is exist in the array', () => {
+    expect(objectInArrayIsExist(props.arrayCsv, props.objectCsv[0])).toBe(true)
+  })
+
+  it('return false if object is exist in the array', () => {
+    expect(objectInArrayIsExist(props.arrayCsv, props.objectCsv[1])).toBe(false)
+  })
+
+  it('return csv file', () => {
+    expect(arrayToCsv(props.arrayCsv, props.previx)).toBe(props.csvString)
+  })
+
+  it('test generate file', () => {
+    CsvAutoFill.generateFile()
   })
 })
