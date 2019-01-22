@@ -1,4 +1,4 @@
-import some from 'lodash.some'
+import { saveAs } from 'file-saver'
 
 interface ICsv {
   name?: string
@@ -64,19 +64,7 @@ const CsvAutoFill = {
 
     const encodedUri = encodeURI(arrayToCsv(csvArray, previx))
 
-    const link = document.createElement('a')
-    link.setAttribute('id', 'download-csv-file')
-    link.setAttribute('href', encodedUri)
-    link.setAttribute('download', fileName + '.csv')
-    document.body.appendChild(link) // Required for FF
-
-    link.click()
-
-    const element = document.getElementById('download-csv-file')
-
-    if (element && element.parentNode) {
-      element.parentNode.removeChild(element)
-    }
+    saveAs(encodedUri, `${fileName}.csv`)
   },
   uploadFile: () => {
     return 'uploadFile'
