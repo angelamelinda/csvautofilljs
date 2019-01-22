@@ -66,7 +66,7 @@ const CsvAutoFill = {
 
     saveAs(encodedUri, `${fileName}.csv`)
   },
-  uploadFile: () => {
+  uploadFile: (param?: ICsv) => {
     return 'uploadFile'
   }
 }
