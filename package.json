@@ -86,7 +86,6 @@
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
     "@commitlint/config-conventional": "^7.1.2",
-    "@types/file-saver": "^2.0.0",
     "@types/jest": "^23.3.12",
     "@types/jsdom": "^12.2.1",
     "@types/lodash.some": "^4.6.4",
@@ -97,7 +96,6 @@
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
-    "file-saver": "^2.0.0",
     "husky": "^1.0.1",
     "jest": "^23.6.0",
     "jest-config": "^23.6.0",
@@ -126,5 +124,7 @@
     "typedoc": "^0.12.0",
     "typescript": "^3.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/file-saver": "^2.0.0"
+  }
 }
