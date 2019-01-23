@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver'
+import FileSaver from 'file-saver'
 
 interface ICsv {
   name?: string
@@ -66,7 +66,7 @@ const CsvAutoFill = {
 
     saveAs(encodedUri, `${fileName}.csv`)
   },
-  uploadFile: (param?: ICsv) => {
+  uploadFile: () => {
     return 'uploadFile'
   }
 }

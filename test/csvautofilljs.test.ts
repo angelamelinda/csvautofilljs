@@ -1,5 +1,6 @@
 import CsvAutoFill, { objectInArrayIsExist, arrayToCsv } from '../src/csvautofilljs'
 import * as helper from '../helper'
+import * as FileSaver from 'file-saver'
 /**
  * CsvAutoFill
  */
@@ -27,6 +28,8 @@ describe('CsvAutoFill', () => {
   })
 
   it('test generate file', () => {
+    spyOn(FileSaver, 'saveAs')
+
     CsvAutoFill.generateFile()
   })
 })
