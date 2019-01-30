@@ -1,4 +1,4 @@
-import FileSaver from 'file-saver'
+import Papa from 'papaparse'
 
 interface ICsv {
   name?: string
@@ -20,6 +20,29 @@ export const objectInArrayIsExist = (
   })
 }
 
+export const checkUniqueCharCsv = (text: string) => {
+  let str = text
+
+  if (text.indexOf('"') > 0) {
+    let newStr = []
+    newStr.push('"')
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === '"') {
+        newStr.push('"')
+        newStr.push(text[i])
+      } else {
+        newStr.push(text[i])
+      }
+    }
+    newStr.push('"')
+    str = newStr.join('')
+  } else if (text.indexOf(',') > 0 || text.indexOf('\r') > 0 || text.indexOf('\n') > 0) {
+    str = '"' + text + '"'
+  }
+
+  return str
+}
+
 export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   const key = 'key'
   const value = 'value'
@@ -27,15 +50,11 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   let csvContent = 'data:text/csv;charset=utf-8'
   csvContent += ',key,value,guide\r\n'
   arrayValue.map(val => {
-    csvContent += val[key].substr(previx.length)
+    csvContent += checkUniqueCharCsv(val[key].substr(previx.length))
     csvContent += ','
-    csvContent += '"'
-    csvContent += val[value]
-    csvContent += '"'
+    csvContent += checkUniqueCharCsv(val[value])
     csvContent += ','
-    csvContent += '"'
-    csvContent += val[guide]
-    csvContent += '"'
+    csvContent += checkUniqueCharCsv(val[guide])
     csvContent += '\r\n'
   })
 
@@ -48,7 +67,7 @@ const CsvAutoFill = {
     const previx = param && param.previx ? param.previx : 'csv-'
     const csvListsKey = Array.from(document.querySelectorAll('[name^="' + previx + '"]'))
     const csvArray: ICsvGenerateFile[] = []
-
+    console.log(csvListsKey)
     csvListsKey.forEach((list, idx) => {
       const csvGuide = document.querySelector('label[for="' + list.getAttribute('name') + '"]')
       const guideText = csvGuide && csvGuide.textContent ? csvGuide.textContent : ''

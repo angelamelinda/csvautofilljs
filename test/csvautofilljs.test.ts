@@ -1,4 +1,8 @@
-import CsvAutoFill, { objectInArrayIsExist, arrayToCsv } from '../src/csvautofilljs'
+import CsvAutoFill, {
+  objectInArrayIsExist,
+  arrayToCsv,
+  checkUniqueCharCsv
+} from '../src/csvautofilljs'
 import * as helper from '../helper'
 import * as FileSaver from 'file-saver'
 /**
@@ -27,9 +31,47 @@ describe('CsvAutoFill', () => {
     expect(arrayToCsv(props.arrayCsv, props.previx)).toBe(props.csvString)
   })
 
+  it('return same text with the input', () => {
+    expect(checkUniqueCharCsv('Please fill the name')).toBe('Please fill the name')
+  })
+
+  it('wrapped the text "" if contains " and add "', () => {
+    expect(checkUniqueCharCsv('Please " fill the name')).toBe('"Please "" fill the name"')
+  })
+
+  it('wrapped the text "" if contains ,', () => {
+    expect(checkUniqueCharCsv('Please, fill the name')).toBe('"Please, fill the name"')
+  })
+
+  it('wrapped the text if contains enter r', () => {
+    expect(checkUniqueCharCsv('Please\r fill the name')).toBe('"Please\r fill the name"')
+  })
+
+  it('wrapped the text if contains enter n', () => {
+    expect(checkUniqueCharCsv('Please\n fill the name')).toBe('"Please\n fill the name"')
+  })
+
   it('test generate file', () => {
     spyOn(FileSaver, 'saveAs')
 
     CsvAutoFill.generateFile()
+  })
+
+  it('test generate file with name', () => {
+    spyOn(FileSaver, 'saveAs')
+
+    CsvAutoFill.generateFile({ name: 'templatex' })
+  })
+
+  it('test generate file with previx', () => {
+    spyOn(FileSaver, 'saveAs')
+
+    CsvAutoFill.generateFile({ previx: 'csv-' })
+  })
+
+  it('test generate file with name and previx', () => {
+    spyOn(FileSaver, 'saveAs')
+
+    CsvAutoFill.generateFile({ name: 'templatex', previx: 'csv-' })
   })
 })
