@@ -67,7 +67,7 @@ const CsvAutoFill = {
     const previx = param && param.previx ? param.previx : 'csv-'
     const csvListsKey = Array.from(document.querySelectorAll('[name^="' + previx + '"]'))
     const csvArray: ICsvGenerateFile[] = []
-    console.log(csvListsKey)
+
     csvListsKey.forEach((list, idx) => {
       const csvGuide = document.querySelector('label[for="' + list.getAttribute('name') + '"]')
       const guideText = csvGuide && csvGuide.textContent ? csvGuide.textContent : ''

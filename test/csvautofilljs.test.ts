@@ -11,6 +11,18 @@ import * as FileSaver from 'file-saver'
 describe('CsvAutoFill', () => {
   let props = helper.mockData()
 
+  document.body.innerHTML =
+    '<div>' +
+    '<form>' +
+    '<label for="csv-firstname" hidden>Please fill, "" your first name</label>' +
+    '<input type="text" name="csv-firstname" />' +
+    '<label for="csv-firstname" hidden>Please fill, "" your first name</label>' +
+    '<input type="text" name="csv-firstname" />' +
+    '<label for="csv-lastname" hidden></label>' +
+    '<input type="text" name="csv-lastname" />' +
+    '</form>' +
+    '</div>'
+
   it('works if true is truthy', () => {
     expect(true).toBeTruthy()
   })
