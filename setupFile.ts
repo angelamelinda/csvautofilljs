@@ -15,5 +15,3 @@ globalAny.File = class MockFile {
     this.name = name
   }
 }
-
-globalAny.FileReader = class MockFile {}
