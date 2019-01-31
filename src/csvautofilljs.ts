@@ -1,4 +1,6 @@
-interface ICsv {
+import { parse } from 'papaparse'
+
+interface ICsvGenerate {
   name?: string
   previx?: string
 }
@@ -9,9 +11,16 @@ interface ICsvGenerateFile {
   guide: string
 }
 
-interface ICsvUploadFile {
+interface ICsvUpload {
   file: File
   previx?: string
+}
+
+interface ICsvUploadFile {
+  key: string
+  value: string
+  guide: string
+  disabled: boolean
 }
 
 export const objectInArrayIsExist = (
@@ -66,7 +75,7 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
 }
 
 const CsvAutoFill = {
-  generateFile: (param?: ICsv) => {
+  generateFile: (param?: ICsvGenerate) => {
     const fileName = param && param.name ? param.name : 'template'
     const previx = param && param.previx ? param.previx : 'csv-'
     const csvListsKey = Array.from(document.querySelectorAll('[name^="' + previx + '"]'))
@@ -90,9 +99,45 @@ const CsvAutoFill = {
     saveAs(encodedUri, `${fileName}.csv`)
   },
 
-  uploadFile: (param: ICsvUploadFile) => {
+  uploadFile: (param: ICsvUpload) => {
     const csvPrefix = param && param.previx ? param.previx : 'csv-'
     const f: File = param.file
+    let resultCsv: ICsvUploadFile[] = []
+
+    if (
+      (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
+      (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
+    ) {
+      parse(f, {
+        complete: (result: any) => {
+          let resultArr = result.data
+          resultArr.forEach((val: any, idx: any) => {
+            if (idx !== 0) {
+              const el = document.getElementsByName(csvPrefix + val[0]) as any
+              if (el) {
+                resultCsv[idx - 1] = {
+                  key: val[0],
+                  value: val[1],
+                  guide: val[2],
+                  disabled: !!el.disabled
+                }
+              }
+            }
+          })
+          return {
+            data: resultCsv,
+            statusCode: '1'
+          }
+        }
+      })
+    }
+
+    return {
+      data: {
+        message: 'Please choose a csv file'
+      },
+      statusCode: '0'
+    }
   }
 }
 

@@ -5,11 +5,13 @@ import CsvAutoFill, {
 } from '../src/csvautofilljs'
 import * as helper from '../helper'
 import * as FileSaver from 'file-saver'
+import { parse } from 'papaparse'
+
 /**
  * CsvAutoFill
  */
 
-jest.mock('fs')
+jest.mock('papaparse')
 
 describe('CsvAutoFill', () => {
   let props = helper.mockData()
@@ -97,12 +99,18 @@ describe('CsvAutoFill', () => {
   })
 
   it('test upload file', () => {
+    // const spy = spyOn(papa, 'parse')
+    let parsecsv = parse(fileCsv, { complete: result => console.log(result) })
+    console.log(parsecsv)
+    // expect(spy).toBeCalled()
     CsvAutoFill.uploadFile({
       file: fileCsv
     })
   })
 
   it('test upload file with previx', () => {
+    // spyOn(papa, 'parse')
+
     CsvAutoFill.uploadFile({
       previx: 'csv-',
       file: fileCsv
