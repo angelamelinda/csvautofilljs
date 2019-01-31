@@ -1,5 +1,3 @@
-import Papa from 'papaparse'
-
 interface ICsv {
   name?: string
   previx?: string
