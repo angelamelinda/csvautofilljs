@@ -11,6 +11,11 @@ interface ICsvGenerateFile {
   guide: string
 }
 
+interface ICsvUploadFile {
+  file: File
+  previx?: string
+}
+
 export const objectInArrayIsExist = (
   arrayValue: ICsvGenerateFile[],
   objectValue: ICsvGenerateFile
@@ -26,12 +31,13 @@ export const checkUniqueCharCsv = (text: string) => {
   if (text.indexOf('"') > 0) {
     let newStr = []
     newStr.push('"')
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] === '"') {
-        newStr.push('"')
-        newStr.push(text[i])
+    let temp = text.split('"')
+    for (let i = 0; i < temp.length; i++) {
+      if (i === temp.length - 1) {
+        newStr.push(temp[i])
       } else {
-        newStr.push(text[i])
+        newStr.push(temp[i])
+        newStr.push('""')
       }
     }
     newStr.push('"')
@@ -85,8 +91,31 @@ const CsvAutoFill = {
 
     saveAs(encodedUri, `${fileName}.csv`)
   },
-  uploadFile: () => {
-    return 'uploadFile'
+
+  uploadFile: (param: ICsvUploadFile) => {
+    const csvPrefix = param && param.previx ? param.previx : 'csv-'
+    const f: File = param.file
+
+    if (
+      (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
+      (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
+    ) {
+      const reader = new FileReader()
+
+      reader.readAsBinaryString(f),
+        (reader.onload = () => {
+          const resultReader = reader.result as string
+          const resultReaderArr = resultReader.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g)
+          console.log(resultReaderArr)
+        })
+    }
+
+    return {
+      data: {
+        message: 'Please choose a csv file'
+      },
+      statusCode: '0'
+    }
   }
 }
 

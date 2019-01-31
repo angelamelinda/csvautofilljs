@@ -8,15 +8,18 @@ import * as FileSaver from 'file-saver'
 /**
  * CsvAutoFill
  */
+
+jest.mock('fs')
+
 describe('CsvAutoFill', () => {
   let props = helper.mockData()
 
   document.body.innerHTML =
     '<div>' +
     '<form>' +
-    '<label for="csv-firstname" hidden>Please fill, "" your first name</label>' +
+    '<label for="csv-firstname" hidden>Please fill, your first name</label>' +
     '<input type="text" name="csv-firstname" />' +
-    '<label for="csv-firstname" hidden>Please fill, "" your first name</label>' +
+    '<label for="csv-firstname" hidden>Please fill, your first name</label>' +
     '<input type="text" name="csv-firstname" />' +
     '<label for="csv-lastname" hidden></label>' +
     '<input type="text" name="csv-lastname" />' +
@@ -25,10 +28,6 @@ describe('CsvAutoFill', () => {
 
   it('works if true is truthy', () => {
     expect(true).toBeTruthy()
-  })
-
-  it('return uploadFile', () => {
-    expect(CsvAutoFill.uploadFile()).toBe('uploadFile')
   })
 
   it('return true if object is exist in the array', () => {
@@ -49,6 +48,10 @@ describe('CsvAutoFill', () => {
 
   it('wrapped the text "" if contains " and add "', () => {
     expect(checkUniqueCharCsv('Please " fill the name')).toBe('"Please "" fill the name"')
+  })
+
+  it('wrapped the text "" if contains " and add "', () => {
+    expect(checkUniqueCharCsv('Please "" fill the name')).toBe('"Please """" fill the name"')
   })
 
   it('wrapped the text "" if contains ,', () => {
@@ -85,5 +88,17 @@ describe('CsvAutoFill', () => {
     spyOn(FileSaver, 'saveAs')
 
     CsvAutoFill.generateFile({ name: 'templatex', previx: 'csv-' })
+  })
+
+  it('test upload file', () => {
+    const fileCsv = new File(
+      ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
+      'csv.csv',
+      { type: 'text/csv' }
+    )
+
+    CsvAutoFill.uploadFile({
+      file: fileCsv
+    })
   })
 })
