@@ -95,27 +95,6 @@ const CsvAutoFill = {
   uploadFile: (param: ICsvUploadFile) => {
     const csvPrefix = param && param.previx ? param.previx : 'csv-'
     const f: File = param.file
-
-    if (
-      (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
-      (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
-    ) {
-      const reader = new FileReader()
-
-      reader.readAsBinaryString(f),
-        (reader.onload = () => {
-          const resultReader = reader.result as string
-          const resultReaderArr = resultReader.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g)
-          console.log(resultReaderArr)
-        })
-    }
-
-    return {
-      data: {
-        message: 'Please choose a csv file'
-      },
-      statusCode: '0'
-    }
   }
 }
 

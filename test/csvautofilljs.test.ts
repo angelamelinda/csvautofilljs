@@ -14,6 +14,12 @@ jest.mock('fs')
 describe('CsvAutoFill', () => {
   let props = helper.mockData()
 
+  const fileCsv = new File(
+    ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
+    'csv.csv',
+    { type: 'text/csv' }
+  )
+
   document.body.innerHTML =
     '<div>' +
     '<form>' +
@@ -91,13 +97,14 @@ describe('CsvAutoFill', () => {
   })
 
   it('test upload file', () => {
-    const fileCsv = new File(
-      ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
-      'csv.csv',
-      { type: 'text/csv' }
-    )
-
     CsvAutoFill.uploadFile({
+      file: fileCsv
+    })
+  })
+
+  it('test upload file with previx', () => {
+    CsvAutoFill.uploadFile({
+      previx: 'csv-',
       file: fileCsv
     })
   })
