@@ -1,6 +1,6 @@
 {
   "name": "csvautofilljs",
-  "version": "0.0.7-development",
+  "version": "0.0.8-development",
   "description": "",
   "keywords": [],
   "main": "dist/csvautofilljs.umd.js",
