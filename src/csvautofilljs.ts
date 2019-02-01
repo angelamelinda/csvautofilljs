@@ -103,7 +103,7 @@ const CsvAutoFill = {
   uploadFile: (param: ICsvUpload) => {
     const csvPrefix = param && param.previx ? param.previx : 'csv-'
     const f: File = param.file
-    let resultCsv: ICsvUploadFile[] = []
+    let resultCsv: any[] = []
 
     if (
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
