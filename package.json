@@ -1,6 +1,6 @@
 {
   "name": "csvautofilljs",
-  "version": "0.0.2-development",
+  "version": "0.0.3-development",
   "description": "",
   "keywords": [],
   "main": "dist/csvautofilljs.umd.js",
@@ -125,7 +125,9 @@
     "typescript": "^3.2.2"
   },
   "dependencies": {
+    "@types/file-saver": "^2.0.0",
     "@types/papaparse": "^4.5.7",
-    "@types/file-saver": "^2.0.0"
+    "file-saver": "^2.0.0",
+    "papaparse": "^4.6.3"
   }
 }

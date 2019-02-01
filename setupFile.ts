@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom'
+import * as Papa from 'papaparse'
 
 const globalAny: any = global
 
@@ -13,5 +14,12 @@ globalAny.File = class MockFile {
     properties?: FilePropertyBag
   ) {
     this.name = name
+  }
+}
+
+globalAny.parse = class Papa {
+  file: File
+  constructor(file: File, config?: Papa.ParseConfig | undefined) {
+    this.file = file
   }
 }
