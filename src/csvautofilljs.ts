@@ -109,7 +109,6 @@ const CsvAutoFill = {
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
     ) {
-      console.log('upload file #1')
       parse(f, {
         complete: (result: any) => {
           let resultArr = result.data
@@ -126,14 +125,13 @@ const CsvAutoFill = {
               }
             }
           })
-          return {
-            data: resultCsv,
-            statusCode: 1
-          }
         }
       })
+      return {
+        data: resultCsv,
+        statusCode: 1
+      }
     } else {
-      console.log('upload file #2')
       return {
         data: {
           message: 'Please choose a csv file'
