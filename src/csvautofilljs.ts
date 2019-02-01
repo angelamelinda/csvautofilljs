@@ -116,12 +116,12 @@ const CsvAutoFill = {
             if (idx !== 0) {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
               if (el) {
-                resultCsv[idx - 1] = {
+                resultCsv.push({
                   key: val[0],
                   value: val[1],
                   guide: val[2],
                   disabled: !!el.disabled
-                }
+                })
               }
             }
           })
