@@ -1,4 +1,5 @@
 import { parse } from 'papaparse'
+import { saveAs } from 'file-saver'
 
 interface ICsvGenerate {
   name?: string
@@ -126,7 +127,7 @@ const CsvAutoFill = {
           })
           return {
             data: resultCsv,
-            statusCode: '1'
+            statusCode: 1
           }
         }
       })
@@ -136,7 +137,7 @@ const CsvAutoFill = {
       data: {
         message: 'Please choose a csv file'
       },
-      statusCode: '0'
+      statusCode: 0
     }
   }
 }
