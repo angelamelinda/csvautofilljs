@@ -75,8 +75,8 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   return csvContent
 }
 
-const CsvAutoFill = {
-  generateFile: (param?: ICsvGenerate) => {
+export const CsvAutoFill = {
+  generateFile: function(param?: ICsvGenerate) {
     const fileName = param && param.name ? param.name : 'template'
     const previx = param && param.previx ? param.previx : 'csv-'
     const csvListsKey = Array.from(document.querySelectorAll('[name^="' + previx + '"]'))
@@ -100,7 +100,7 @@ const CsvAutoFill = {
     saveAs(encodedUri, `${fileName}.csv`)
   },
 
-  uploadFile: (param: ICsvUpload) => {
+  uploadFile: async function(param: ICsvUpload) {
     const csvPrefix = param && param.previx ? param.previx : 'csv-'
     const f: File = param.file
     let resultCsv: Array<ICsvUploadFile> = []
@@ -109,7 +109,7 @@ const CsvAutoFill = {
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
     ) {
-      parse(f, {
+      await parse(f, {
         complete: (result: any) => {
           let resultArr = result.data
           resultArr.forEach((val: any, idx: any) => {
@@ -141,5 +141,3 @@ const CsvAutoFill = {
     }
   }
 }
-
-export default CsvAutoFill

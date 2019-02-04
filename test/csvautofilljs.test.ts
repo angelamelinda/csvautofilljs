@@ -1,4 +1,5 @@
-import CsvAutoFill, {
+import {
+  CsvAutoFill,
   objectInArrayIsExist,
   arrayToCsv,
   checkUniqueCharCsv
