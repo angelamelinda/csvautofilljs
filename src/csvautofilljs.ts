@@ -63,13 +63,15 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   const guide = 'guide'
   let csvContent = 'data:text/csv;charset=utf-8'
   csvContent += ',key,value,guide\r\n'
-  arrayValue.map(val => {
+  arrayValue.map((val, id) => {
     csvContent += checkUniqueCharCsv(val[key].substr(previx.length))
     csvContent += ','
     csvContent += checkUniqueCharCsv(val[value])
     csvContent += ','
     csvContent += checkUniqueCharCsv(val[guide])
-    csvContent += '\r\n'
+    if (id !== arrayValue.length - 1) {
+      csvContent += '\r\n'
+    }
   })
 
   return csvContent
@@ -129,7 +131,7 @@ export const CsvAutoFill = {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
               if (el.length > 0) {
                 resultCsv.push({
-                  key: csvPrefix + val[0],
+                  key: val[0],
                   value: val[1],
                   guide: val[2],
                   disabled: !!el.disabled
@@ -146,9 +148,11 @@ export const CsvAutoFill = {
       }
     } else {
       result = {
-        data: {
-          message: 'Please choose a csv file'
-        },
+        data: [
+          {
+            message: 'Please choose a csv file'
+          }
+        ],
         statusCode: 0
       }
     }

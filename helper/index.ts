@@ -26,6 +26,6 @@ export const mockData = () => {
     ],
     previx: 'csv-',
     csvString:
-      'data:text/csv;charset=utf-8,key,value,guide\r\ncampaignisfullname,,True or Falsey\r\ncampaignerrorordernotfound,,\r\n'
+      'data:text/csv;charset=utf-8,key,value,guide\r\ncampaignisfullname,,True or Falsey\r\ncampaignerrorordernotfound,,'
   }
 }

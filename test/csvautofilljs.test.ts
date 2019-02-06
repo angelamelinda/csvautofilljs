@@ -139,7 +139,7 @@ describe('CsvAutoFill', () => {
   })
 
   it('test parse', () => {
-    let x = parseData(fileCsv)
-    console.log(x)
+    let parse = parseData(fileCsv)
+    console.log(parse)
   })
 })
