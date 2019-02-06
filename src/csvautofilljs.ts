@@ -148,7 +148,11 @@ export const CsvAutoFill = {
       }
     } else {
       result = {
-        message: 'Please choose a csv file',
+        data: [
+          {
+            message: 'Please choose a csv file'
+          }
+        ],
         statusCode: 0
       }
     }
