@@ -105,7 +105,7 @@ export const CsvAutoFill = {
         value: ''
       }
       if (!objectInArrayIsExist(csvArray, csvList)) {
-        csvArray[idx] = csvList
+        csvArray.push(csvList)
       }
     })
 
