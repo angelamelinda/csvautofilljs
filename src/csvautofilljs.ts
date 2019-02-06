@@ -75,6 +75,18 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   return csvContent
 }
 
+export const parseData = (content: File) => {
+  let data: any
+  return new Promise(resolve => {
+    parse(content, {
+      complete: (result: any) => {
+        data = result.data
+        resolve(data)
+      }
+    })
+  })
+}
+
 export const CsvAutoFill = {
   generateFile: function(param?: ICsvGenerate) {
     const fileName = param && param.name ? param.name : 'template'
@@ -104,17 +116,19 @@ export const CsvAutoFill = {
     const csvPrefix = param && param.previx ? param.previx : 'csv-'
     const f: File = param.file
     let resultCsv: Array<ICsvUploadFile> = []
+    let result
 
     if (
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
     ) {
-      await parse(f, {
-        complete: (result: any) => {
-          let resultArr = result.data
-          resultArr.forEach((val: any, idx: any) => {
+      let contentObject = await parseData(f).then((data: any) => {
+        if (data) {
+          data.forEach((val: any, idx: any) => {
+            console.log(val)
             if (idx !== 0) {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
+
               if (el) {
                 resultCsv.push({
                   key: val[0],
@@ -127,17 +141,19 @@ export const CsvAutoFill = {
           })
         }
       })
-      return {
+
+      result = {
         data: resultCsv,
         statusCode: 1
       }
     } else {
-      return {
+      result = {
         data: {
           message: 'Please choose a csv file'
         },
         statusCode: 0
       }
     }
+    return result
   }
 }

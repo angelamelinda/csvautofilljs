@@ -2,7 +2,8 @@ import {
   CsvAutoFill,
   objectInArrayIsExist,
   arrayToCsv,
-  checkUniqueCharCsv
+  checkUniqueCharCsv,
+  parseData
 } from '../src/csvautofilljs'
 import * as helper from '../helper'
 import * as FileSaver from 'file-saver'
@@ -14,6 +15,18 @@ describe('CsvAutoFill', () => {
     ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
     'csv.csv',
     { type: 'text/csv' }
+  )
+
+  const fileMsCsv = new File(
+    ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
+    'csv.csv',
+    { type: 'application/vnd.ms-excel' }
+  )
+
+  const fileTxt = new File(
+    ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
+    'csv.txt',
+    { type: 'text/plain' }
   )
 
   document.body.innerHTML =
@@ -93,15 +106,40 @@ describe('CsvAutoFill', () => {
   })
 
   it('test upload file', () => {
-    CsvAutoFill.uploadFile({
+    let upload = CsvAutoFill.uploadFile({
       file: fileCsv
+    }).then(result => {
+      console.log(result)
+    })
+  })
+
+  it('test upload file', () => {
+    let upload = CsvAutoFill.uploadFile({
+      file: fileMsCsv
+    }).then(result => {
+      console.log(result)
+    })
+  })
+
+  it('test upload file with wrong file', () => {
+    let upload = CsvAutoFill.uploadFile({
+      file: fileTxt
+    }).then(result => {
+      console.log(result)
     })
   })
 
   it('test upload file with previx', () => {
-    CsvAutoFill.uploadFile({
+    let upload = CsvAutoFill.uploadFile({
       previx: 'csv-',
       file: fileCsv
+    }).then(result => {
+      console.log(result)
     })
+  })
+
+  it('test parse', () => {
+    let x = parseData(fileCsv)
+    console.log(x)
   })
 })

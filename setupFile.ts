@@ -8,12 +8,14 @@ globalAny.document = new JSDOM(documentHTML).window.document
 
 globalAny.File = class MockFile {
   name: string
+  type: string | undefined
   constructor(
     parts: (string | Blob | ArrayBuffer | ArrayBufferView)[],
     name: string,
-    properties?: FilePropertyBag
+    properties: FilePropertyBag
   ) {
     this.name = name
+    this.type = properties.type
   }
 }
 
