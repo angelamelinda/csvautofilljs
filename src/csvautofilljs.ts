@@ -128,10 +128,10 @@ export const CsvAutoFill = {
             console.log(val)
             if (idx !== 0) {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
-
+              console.log(el)
               if (el) {
                 resultCsv.push({
-                  key: val[0],
+                  key: csvPrefix + val[0],
                   value: val[1],
                   guide: val[2],
                   disabled: !!el.disabled
