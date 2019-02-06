@@ -125,11 +125,9 @@ export const CsvAutoFill = {
       let contentObject = await parseData(f).then((data: any) => {
         if (data) {
           data.forEach((val: any, idx: any) => {
-            console.log(val)
             if (idx !== 0) {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
-              console.log(el)
-              if (el) {
+              if (el.length > 0) {
                 resultCsv.push({
                   key: csvPrefix + val[0],
                   value: val[1],
