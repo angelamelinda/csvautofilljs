@@ -105,15 +105,19 @@ describe('CsvAutoFill', () => {
     CsvAutoFill.generateFile({ name: 'templatex', previx: 'csv-' })
   })
 
-  it('test upload file', () => {
+  it('test upload file with type text/csv', () => {
     let upload = CsvAutoFill.uploadFile({
       file: fileCsv
-    }).then(result => {
-      console.log(result)
     })
+      .then(result => {
+        console.log(result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   })
 
-  it('test upload file', () => {
+  it('test upload file with type application/vnd.ms-excel', () => {
     let upload = CsvAutoFill.uploadFile({
       file: fileMsCsv
     }).then(result => {
@@ -121,7 +125,7 @@ describe('CsvAutoFill', () => {
     })
   })
 
-  it('test upload file with wrong file', () => {
+  it('test upload file with wrong file type', () => {
     let upload = CsvAutoFill.uploadFile({
       file: fileTxt
     }).then(result => {
@@ -136,10 +140,5 @@ describe('CsvAutoFill', () => {
     }).then(result => {
       console.log(result)
     })
-  })
-
-  it('test parse', () => {
-    let parse = parseData(fileCsv)
-    console.log(parse)
   })
 })

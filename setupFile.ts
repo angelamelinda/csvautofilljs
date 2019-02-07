@@ -9,11 +9,13 @@ globalAny.document = new JSDOM(documentHTML).window.document
 globalAny.File = class MockFile {
   name: string
   type: string | undefined
+  bits: (string | Blob | ArrayBuffer | ArrayBufferView)[]
   constructor(
     parts: (string | Blob | ArrayBuffer | ArrayBufferView)[],
     name: string,
     properties: FilePropertyBag
   ) {
+    this.bits = parts
     this.name = name
     this.type = properties.type
   }
@@ -25,3 +27,16 @@ globalAny.parse = class Papa {
     this.file = file
   }
 }
+
+globalAny.FileReaderSync = class MockFileReaderSync {
+  // tslint:disable-next-line:no-empty
+  readAsArrayBuffer(blob: Blob) {}
+  // tslint:disable-next-line:no-empty
+  readAsBinaryString(blob: Blob) {}
+  // tslint:disable-next-line:no-empty
+  readAsText(blob: Blob) {}
+  // tslint:disable-next-line:no-empty
+  readAsDataUrl(blob: Blob) {}
+}
+
+const reader = new globalAny.FileReaderSync()
