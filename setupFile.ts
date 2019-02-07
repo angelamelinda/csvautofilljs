@@ -40,3 +40,8 @@ globalAny.FileReaderSync = class MockFileReaderSync {
 }
 
 const reader = new globalAny.FileReaderSync()
+
+globalAny.FileReader = class MockFileReader {
+  // tslint:disable-next-line:no-empty
+  readAsText(blob: Blob) {}
+}
