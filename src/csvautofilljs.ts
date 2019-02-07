@@ -80,12 +80,21 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
 export const parseData = (content: File) => {
   let data: any
   return new Promise(resolve => {
-    parse(content, {
-      complete: (result: any) => {
-        data = result.data
-        resolve(data)
-      }
-    })
+    const reader = new FileReader()
+    let delimiter
+    reader.readAsText(content),
+      (reader.onload = () => {
+        const resultReader = reader.result as string
+        const resultSubs = resultReader.substring(0, resultReader.indexOf('guide'))
+        delimiter = resultSubs.substring(4, 3)
+        parse(content, {
+          delimiter: delimiter,
+          complete: (result: any) => {
+            data = result.data
+            resolve(data)
+          }
+        })
+      })
   })
 }
 
