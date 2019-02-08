@@ -108,7 +108,7 @@ export const checkValueType = (value: any, type: string) => {
   } else if (type === 'number') {
     let converted = Number(value)
     if (isNaN(converted)) {
-      return null
+      return ''
     } else {
       return converted
     }
