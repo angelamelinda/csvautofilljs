@@ -1,6 +1,6 @@
 {
   "name": "csvautofilljs",
-  "version": "0.0.22-development",
+  "version": "0.0.23-development",
   "description": "",
   "keywords": [],
   "main": "dist/csvautofilljs.umd.js",
@@ -65,10 +65,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branchs": 70,
-        "functions": 70,
-        "lines": 70,
-        "statements": 70
+        "branchs": 60,
+        "functions": 60,
+        "lines": 60,
+        "statements": 60
       }
     },
     "collectCoverageFrom": [

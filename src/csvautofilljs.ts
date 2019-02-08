@@ -98,6 +98,25 @@ export const parseData = (content: File) => {
   })
 }
 
+export const checkValueType = (value: any, type: string) => {
+  if (type === 'checkbox' || type === 'radio') {
+    if (value.toLowerCase() === 'true' || value.toLowerCase() === 'yes') {
+      return true
+    } else {
+      return false
+    }
+  } else if (type === 'number') {
+    let converted = Number(value)
+    if (isNaN(converted)) {
+      return null
+    } else {
+      return converted
+    }
+  } else {
+    return value
+  }
+}
+
 export const CsvAutoFill = {
   generateFile: function(param?: ICsvGenerate) {
     const fileName = param && param.name ? param.name : 'template'
@@ -139,9 +158,10 @@ export const CsvAutoFill = {
             if (idx !== 0) {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
               if (el.length > 0) {
+                const type = el[0].getAttribute('type')
                 resultCsv.push({
                   key: val[0],
-                  value: val[1],
+                  value: checkValueType(val[1], type),
                   guide: val[2],
                   disabled: !!el.disabled
                 })
