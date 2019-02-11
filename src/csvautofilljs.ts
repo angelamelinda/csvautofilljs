@@ -63,7 +63,7 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   const guide = 'guide'
   let csvContent = 'data:text/csv;charset=utf-8'
   csvContent += ',key,value,guide\r\n'
-  arrayValue.map((val, id) => {
+  arrayValue.forEach((val, id) => {
     csvContent += checkUniqueCharCsv(val[key].substr(previx.length))
     csvContent += ','
     csvContent += checkUniqueCharCsv(val[value])
@@ -139,7 +139,6 @@ export const CsvAutoFill = {
             if (idx !== 0) {
               const el = document.getElementsByName(csvPrefix + val[0]) as any
               if (el.length > 0) {
-                const type = el[0].getAttribute('type')
                 resultCsv.push({
                   key: val[0],
                   value: val[1],
