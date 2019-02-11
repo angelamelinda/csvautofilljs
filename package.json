@@ -5,7 +5,9 @@
   "keywords": [
     "csv",
     "csvautofill",
-    "autofill"
+    "autofill",
+    "autofilljs",
+    "csvautofilljs"
   ],
   "main": "dist/csvautofilljs.umd.js",
   "module": "dist/csvautofilljs.es5.js",
