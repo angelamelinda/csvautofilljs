@@ -61,16 +61,17 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   const key = 'key'
   const value = 'value'
   const guide = 'guide'
-  let csvContent = 'data:text/csv;charset=utf-8'
-  csvContent += ',key,value,guide\r\n'
+  let delimiter = navigator.platform.toLowerCase().match(/(win)/i) ? ';' : ','
+  let enter = '\r\n'
+  let csvContent = key + delimiter + value + delimiter + guide + enter
   arrayValue.forEach((val, id) => {
     csvContent += checkUniqueCharCsv(val[key].substr(previx.length))
-    csvContent += ','
+    csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[value])
-    csvContent += ','
+    csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[guide])
     if (id !== arrayValue.length - 1) {
-      csvContent += '\r\n'
+      csvContent += enter
     }
   })
 
@@ -117,10 +118,9 @@ export const CsvAutoFill = {
         csvArray.push(csvList)
       }
     })
+    const csvContent = arrayToCsv(csvArray, previx)
 
-    const encodedUri = encodeURI(arrayToCsv(csvArray, previx))
-
-    saveAs(encodedUri, `${fileName}.csv`)
+    saveAs(new Blob([csvContent], { type: 'text/csv' }), `${fileName}.csv`)
   },
 
   uploadFile: async function(param: ICsvUpload) {

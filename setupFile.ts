@@ -5,6 +5,9 @@ const globalAny: any = global
 
 const documentHTML = '<!DOCTYPE html><html><body><div id="root"></div></body></html>'
 globalAny.document = new JSDOM(documentHTML).window.document
+globalAny.navigator = {
+  platform: 'Mac'
+}
 
 globalAny.File = class MockFile {
   name: string
@@ -18,6 +21,19 @@ globalAny.File = class MockFile {
     this.bits = parts
     this.name = name
     this.type = properties.type
+  }
+}
+
+globalAny.Blob = class MockBlob {
+  name: string
+  bits: (string | Blob | ArrayBuffer | ArrayBufferView)[]
+  constructor(
+    parts: (string | Blob | ArrayBuffer | ArrayBufferView)[],
+    name: string,
+    properties: BlobPropertyBag
+  ) {
+    this.bits = parts
+    this.name = name
   }
 }
 
