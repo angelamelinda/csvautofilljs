@@ -160,7 +160,7 @@ render() {
 
 ## Examples
 
-This is the example of csvautofilljs.
+This is the example of csvautofilljs:
 [https://github.com/angelamelinda/sample-csvautofill](https://github.com/angelamelinda/sample-csvautofill)
 
 ## Contributing
