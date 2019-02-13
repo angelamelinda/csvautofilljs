@@ -110,7 +110,7 @@ If the file is csv and the element is exist, the return will be:
 {
     data: [
         {
-            disabled: "<false or true>",
+            disabled: <false or true>,
             guide: "<the guide>",
             key: "<the key>",
             value: "<the value>"
