@@ -37,14 +37,17 @@ generateFile({ name: '<optional custom filename>', previx: '<optional custom pre
 ```
 
 The default value:
-| Key | Value |
-| ----- | ----- |
-| name | template |
-| previx | csv- |
+
+| Key    | Value    |
+| ------ | -------- |
+| name   | template |
+| previx | csv-     |
+
 The generateFile method returns csv file with this format:
-| key | value | guide |
-| ----- | ----- | ----- |
-| firstName | Jane | Only your first name |
+
+| key       | value | guide                |
+| --------- | ----- | -------------------- |
+| firstName | Jane  | Only your first name |
 
 ##### Step to setup
 
@@ -75,7 +78,6 @@ Example of custom filename and previx:
 
 ```javascript
 <button onClick={() => CsvAutoFill.generateFile({ name: 'csv-template', previx: 'csv' })}>
-  {' '}
   Generate File
 </button>
 ```
@@ -137,7 +139,7 @@ handleUpload(e) {
 
     let result = CsvAutoFill.uploadFile({ file: this.state.file }).then(
       result => {
-            // the setState process
+          // the setState process
       }
     );
 }
