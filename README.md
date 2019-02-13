@@ -24,29 +24,29 @@ npm install --save csvautofilljs
 
 Import CsvAutoFill from the library
 
-```
-import { CsvAutoFill } from "csvautofilljs";
+```javascript
+import { CsvAutoFill } from 'csvautofilljs'
 ```
 
-##### Generate File
+#### Generate File
 
 The generateFile method accepts an object contains `optional filename and previx`.
 
-```
-generateFile({name: "<optional custom filename>", previx: "<optional custom previx>"})
+```javascript
+generateFile({ name: '<optional custom filename>', previx: '<optional custom previx>' })
 ```
 
 The default value:
 | Key | Value |
-| --- | ----- |
+| ----- | ----- |
 | name | template |
 | previx | csv- |
 The generateFile method returns csv file with this format:
 | key | value | guide |
-| --- | ----- | ----- |
+| ----- | ----- | ----- |
 | firstName | Jane | Only your first name |
 
-###### Step to setup
+##### Step to setup
 
 - Add attribute name at the input/ textarea/select with prefix + the state.
   E.g if the state is `firstName` and the previx is `csv-`, then the input name is `csv-firstName`.
@@ -54,47 +54,44 @@ The generateFile method returns csv file with this format:
 
 Example:
 
-```
+```javascript
 <label htmlFor="csv-firstName" hidden>Only your first name</label>
 <input type="text" name="csv-firstName" value="..."/>
 ```
 
 Example of custom file name:
 
-```
-<button
-    onClick={() => CsvAutoFill.generateFile({ name: "csv-template" })}>Generate File
-</button>
+```javascript
+<button onClick={() => CsvAutoFill.generateFile({ name: 'csv-template' })}>Generate File</button>
 ```
 
 Example of custom previx:
 
-```
-<button
-    onClick={() => CsvAutoFill.generateFile({ previx: "csv" })}> Generate File
-</button>
+```javascript
+<button onClick={() => CsvAutoFill.generateFile({ previx: 'csv' })}> Generate File</button>
 ```
 
 Example of custom filename and previx:
 
-```
-<button
-    onClick={() => CsvAutoFill.generateFile({ name: "csv-template", previx: "csv"  })}> Generate File
+```javascript
+<button onClick={() => CsvAutoFill.generateFile({ name: 'csv-template', previx: 'csv' })}>
+  {' '}
+  Generate File
 </button>
 ```
 
-##### Upload File
+#### Upload File
 
 The uploadFile method accepts an object contains `file` and `optional custom previx`.
 The default value:
 | Key | Value |
-| --- | ----- |
+| ----- | ----- |
 | previx | csv- |
 
 The uploadFile method returns an object contains data and status code.
 If the file is wrong, the return will be:
 
-```
+```javascript
 {
     data: {
         message: "Please choose a csv file"
@@ -105,7 +102,7 @@ If the file is wrong, the return will be:
 
 If the file is csv and the element is exist, the return will be:
 
-```
+```javascript
 {
     data: [
         {
@@ -119,11 +116,11 @@ If the file is csv and the element is exist, the return will be:
 }
 ```
 
-###### Step to setup
+##### Step to setup
 
 Example of how to use the method:
 
-```
+```javascript
 ...
 constructor() {
     this.state = {
