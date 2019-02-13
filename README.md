@@ -62,18 +62,6 @@ Example:
 <input type="text" name="csv-firstName" value="..."/>
 ```
 
-Example of custom file name:
-
-```javascript
-<button onClick={() => CsvAutoFill.generateFile({ name: 'csv-template' })}>Generate File</button>
-```
-
-Example of custom previx:
-
-```javascript
-<button onClick={() => CsvAutoFill.generateFile({ previx: 'csv' })}> Generate File</button>
-```
-
 Example of custom filename and previx:
 
 ```javascript
@@ -173,6 +161,7 @@ render() {
 ## Examples
 
 This is the example of csvautofilljs.
+[https://github.com/angelamelinda/sample-csvautofill](https://github.com/angelamelinda/sample-csvautofill)
 
 ## Contributing
 
