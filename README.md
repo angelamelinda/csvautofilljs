@@ -85,10 +85,12 @@ Example of custom filename and previx:
 #### Upload File
 
 The uploadFile method accepts an object contains `file` and `optional custom previx`.
+
 The default value:
-| Key | Value |
-| ----- | ----- |
-| previx | csv- |
+
+| Key    | Value |
+| ------ | ----- |
+| previx | csv-  |
 
 The uploadFile method returns an object contains data and status code.
 If the file is wrong, the return will be:
