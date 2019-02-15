@@ -133,7 +133,7 @@ export const CsvAutoFill = {
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'text/csv') ||
       (f && f.name.substr(f.name.length - 4) === '.csv' && f.type === 'application/vnd.ms-excel')
     ) {
-      let contentObject = await parseData(f).then((data: any) => {
+      await parseData(f).then((data: any) => {
         if (data) {
           data.forEach((val: any, idx: any) => {
             if (idx !== 0) {

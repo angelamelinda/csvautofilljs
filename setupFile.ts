@@ -37,13 +37,6 @@ globalAny.Blob = class MockBlob {
   }
 }
 
-globalAny.parse = class Papa {
-  file: File
-  constructor(file: File, config?: Papa.ParseConfig | undefined) {
-    this.file = file
-  }
-}
-
 globalAny.FileReaderSync = class MockFileReaderSync {
   // tslint:disable-next-line:no-empty
   readAsArrayBuffer(blob: Blob) {}
