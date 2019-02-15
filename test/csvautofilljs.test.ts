@@ -54,7 +54,7 @@ describe('CsvAutoFill', () => {
   })
 
   it('return csv file', () => {
-    expect(arrayToCsv(props.arrayCsv, props.previx)).toBe(props.csvString)
+    expect(arrayToCsv(props.arrayCsv, props.prefix)).toBe(props.csvString)
   })
 
   it('return same text with the input', () => {
@@ -93,16 +93,16 @@ describe('CsvAutoFill', () => {
     CsvAutoFill.generateFile({ name: 'templatex' })
   })
 
-  it('test generate file with previx', () => {
+  it('test generate file with prefix', () => {
     spyOn(FileSaver, 'saveAs')
 
-    CsvAutoFill.generateFile({ previx: 'csv-' })
+    CsvAutoFill.generateFile({ prefix: 'csv-' })
   })
 
-  it('test generate file with name and previx', () => {
+  it('test generate file with name and prefix', () => {
     spyOn(FileSaver, 'saveAs')
 
-    CsvAutoFill.generateFile({ name: 'templatex', previx: 'csv-' })
+    CsvAutoFill.generateFile({ name: 'templatex', prefix: 'csv-' })
   })
 
   it('test upload file with type text/csv', () => {
@@ -133,9 +133,9 @@ describe('CsvAutoFill', () => {
     })
   })
 
-  it('test upload file with previx', () => {
+  it('test upload file with prefix', () => {
     let upload = CsvAutoFill.uploadFile({
-      previx: 'csv-',
+      prefix: 'csv-',
       file: fileCsv
     }).then(result => {
       console.log(result)

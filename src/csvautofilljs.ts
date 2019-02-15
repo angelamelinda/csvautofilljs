@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver'
 
 interface ICsvGenerate {
   name?: string
-  previx?: string
+  prefix?: string
 }
 
 interface ICsvGenerateFile {
@@ -14,7 +14,7 @@ interface ICsvGenerateFile {
 
 interface ICsvUpload {
   file: File
-  previx?: string
+  prefix?: string
 }
 
 interface ICsvUploadFile {
@@ -57,7 +57,7 @@ export const checkUniqueCharCsv = (text: string) => {
   return str
 }
 
-export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
+export const arrayToCsv = (arrayValue: ICsvGenerateFile[], prefix: string) => {
   const key = 'key'
   const value = 'value'
   const guide = 'guide'
@@ -65,7 +65,7 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], previx: string) => {
   let enter = '\r\n'
   let csvContent = key + delimiter + value + delimiter + guide + enter
   arrayValue.forEach((val, id) => {
-    csvContent += checkUniqueCharCsv(val[key].substr(previx.length))
+    csvContent += checkUniqueCharCsv(val[key].substr(prefix.length))
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[value])
     csvContent += delimiter
@@ -102,8 +102,8 @@ export const parseData = (content: File) => {
 export const CsvAutoFill = {
   generateFile: function(param?: ICsvGenerate) {
     const fileName = param && param.name ? param.name : 'template'
-    const previx = param && param.previx ? param.previx : 'csv-'
-    const csvListsKey = Array.from(document.querySelectorAll('[name^="' + previx + '"]'))
+    const prefix = param && param.prefix ? param.prefix : 'csv-'
+    const csvListsKey = Array.from(document.querySelectorAll('[name^="' + prefix + '"]'))
     const csvArray: ICsvGenerateFile[] = []
 
     csvListsKey.forEach((list, idx) => {
@@ -118,13 +118,13 @@ export const CsvAutoFill = {
         csvArray.push(csvList)
       }
     })
-    const csvContent = arrayToCsv(csvArray, previx)
+    const csvContent = arrayToCsv(csvArray, prefix)
 
     saveAs(new Blob([csvContent], { type: 'text/csv' }), `${fileName}.csv`)
   },
 
   uploadFile: async function(param: ICsvUpload) {
-    const csvPrefix = param && param.previx ? param.previx : 'csv-'
+    const csvPrefix = param && param.prefix ? param.prefix : 'csv-'
     const f: File = param.file
     let resultCsv: Array<ICsvUploadFile> = []
     let result

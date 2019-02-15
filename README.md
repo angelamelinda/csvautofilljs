@@ -30,10 +30,10 @@ import { CsvAutoFill } from 'csvautofilljs'
 
 #### Generate File
 
-The generateFile method accepts an object contains `optional filename and previx`.
+The generateFile method accepts an object contains `optional filename and prefix`.
 
 ```javascript
-generateFile({ name: '<optional custom filename>', previx: '<optional custom previx>' })
+generateFile({ name: '<optional custom filename>', prefix: '<optional custom prefix>' })
 ```
 
 The default value:
@@ -41,7 +41,7 @@ The default value:
 | Key    | Value    |
 | ------ | -------- |
 | name   | template |
-| previx | csv-     |
+| prefix | csv-     |
 
 The generateFile method returns csv file with this format:
 
@@ -52,7 +52,7 @@ The generateFile method returns csv file with this format:
 ##### Step to setup
 
 - Add attribute name at the input/ textarea/select with prefix + the state.
-  E.g if the state is `firstName` and the previx is `csv-`, then the input name is `csv-firstName`.
+  E.g if the state is `firstName` and the prefix is `csv-`, then the input name is `csv-firstName`.
 - If you want to put guide to help the user to fill the input/textarea/ select, add a hidden label with attribute htmlFor(if you use React) that refer to the input name.
 
 Example:
@@ -62,23 +62,23 @@ Example:
 <input type="text" name="csv-firstName" value="..."/>
 ```
 
-Example of custom filename and previx:
+Example of custom filename and prefix:
 
 ```javascript
-<button onClick={() => CsvAutoFill.generateFile({ name: 'csv-template', previx: 'csv' })}>
+<button onClick={() => CsvAutoFill.generateFile({ name: 'csv-template', prefix: 'csv' })}>
   Generate File
 </button>
 ```
 
 #### Upload File
 
-The uploadFile method accepts an object contains `file` and `optional custom previx`.
+The uploadFile method accepts an object contains `file` and `optional custom prefix`.
 
 The default value:
 
 | Key    | Value |
 | ------ | ----- |
-| previx | csv-  |
+| prefix | csv-  |
 
 The uploadFile method returns an object contains data and status code.
 If the file is wrong, the return will be:
