@@ -127,7 +127,7 @@ constructor() {
 handleUpload(e) {
     e.preventDefault();
 
-    let result = CsvAutoFill.uploadFile({ file: this.state.file }).then(
+    CsvAutoFill.uploadFile({ file: this.state.file }).then(
       result => {
           // the setState process
       }
