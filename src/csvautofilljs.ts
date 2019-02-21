@@ -33,14 +33,6 @@ export const objectInArrayIsExist = (
   })
 }
 
-export const checkValueType = (value: any, type: string) => {
-  if (type === 'checkbox' || type === 'radio') {
-    return value !== '' ? true : false
-  } else {
-    return value
-  }
-}
-
 export const checkUniqueCharCsv = (text: string) => {
   let str = text
 
@@ -150,7 +142,7 @@ export const CsvAutoFill = {
                 resultCsv.push({
                   key: val[0],
                   label: val[1],
-                  value: checkValueType(val[2], el[0].getAttribute('type')),
+                  value: val[2],
                   disabled: !!el.disabled
                 })
               }
