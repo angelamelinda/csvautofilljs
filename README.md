@@ -24,7 +24,7 @@ npm install --save csvautofilljs
 
 Import CsvAutoFill from the library
 
-```javascript
+```bash
 import { CsvAutoFill } from 'csvautofilljs'
 ```
 
@@ -38,27 +38,27 @@ generateFile({ name: '<optional custom filename>', prefix: '<optional custom pre
 
 The default value:
 
-| Key    | Value    |
+| param  | value    |
 | ------ | -------- |
 | name   | template |
 | prefix | csv-     |
 
 The generateFile method returns csv file with this format:
 
-| key       | value | guide                |
-| --------- | ----- | -------------------- |
-| firstName | Jane  | Only your first name |
+| key       | label      | value |
+| --------- | ---------- | ----- |
+| firstName | First Name | Jane  |
 
 ##### Step to setup
 
 - Add attribute name at the input/ textarea/select with prefix + the state.
   E.g if the state is `firstName` and the prefix is `csv-`, then the input name is `csv-firstName`.
-- If you want to put guide to help the user to fill the input/textarea/ select, add a hidden label with attribute htmlFor(if you use React) that refer to the input name.
+- If you want to put label to help the user to fill the input/textarea/select, add a label with attribute htmlFor(if you use React) that refer to the input name.
 
 Example:
 
 ```javascript
-<label htmlFor="csv-firstName" hidden>Only your first name</label>
+<label htmlFor="csv-firstName">First Name</label>
 <input type="text" name="csv-firstName" value="..."/>
 ```
 
@@ -76,7 +76,7 @@ The uploadFile method accepts an object contains `file` and `optional custom pre
 
 The default value:
 
-| Key    | Value |
+| param  | value |
 | ------ | ----- |
 | prefix | csv-  |
 
@@ -99,8 +99,8 @@ If the file is csv and the element is exist, the return will be:
     data: [
         {
             disabled: <false or true>,
-            guide: "<the guide>",
             key: "<the key>",
+            label: "<the label>",
             value: "<the value>"
         }
     ],
