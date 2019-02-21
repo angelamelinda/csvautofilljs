@@ -3,29 +3,29 @@ export const mockData = () => {
     arrayCsv: [
       {
         key: 'csv-campaignisfullname',
-        value: '',
-        guide: 'True or Falsey'
+        label: 'Full Name',
+        value: 'Angela'
       },
       {
         key: 'csv-campaignerrorordernotfound',
-        value: '',
-        guide: ''
+        label: 'Error Order Not Found',
+        value: ''
       }
     ],
     objectCsv: [
       {
         key: 'csv-campaignerrorordernotfound',
-        value: '',
-        guide: ''
+        label: 'Error Order Not Found',
+        value: ''
       },
       {
         key: 'csv-campaignerrornetwork',
-        value: '',
-        guide: ''
+        label: 'Error Network',
+        value: ''
       }
     ],
     prefix: 'csv-',
     csvString:
-      'key,value,guide\r\ncampaignisfullname,,True or Falsey\r\ncampaignerrorordernotfound,,'
+      'key,label,value\r\ncampaignisfullname,Full Name,Angela\r\ncampaignerrorordernotfound,Error Order Not Found,'
   }
 }

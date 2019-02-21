@@ -11,32 +11,20 @@ import * as FileSaver from 'file-saver'
 describe('CsvAutoFill', () => {
   let props = helper.mockData()
 
-  const fileCsv = new File(
-    ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
-    'csv.csv',
-    { type: 'text/csv' }
-  )
+  const fileCsv = new File([props.csvString], 'csv.csv', { type: 'text/csv' })
 
-  const fileMsCsv = new File(
-    ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
-    'csv.csv',
-    { type: 'application/vnd.ms-excel' }
-  )
+  const fileMsCsv = new File([props.csvString], 'csv.csv', { type: 'application/vnd.ms-excel' })
 
-  const fileTxt = new File(
-    ['key,value,guide\r\nfirstname,Angela,"Please fill, your first name"\r\nlastname,Melinda,'],
-    'csv.txt',
-    { type: 'text/plain' }
-  )
+  const fileTxt = new File([props.csvString], 'csv.txt', { type: 'text/plain' })
 
   document.body.innerHTML =
     '<div>' +
     '<form>' +
-    '<label for="csv-firstname" hidden>Please fill, your first name</label>' +
+    '<label for="csv-firstname">Please fill, your first name</label>' +
     '<input type="text" name="csv-firstname" />' +
-    '<label for="csv-firstname" hidden>Please fill, your first name</label>' +
+    '<label for="csv-firstname">Please fill, your first name</label>' +
     '<input type="text" name="csv-firstname" />' +
-    '<label for="csv-lastname" hidden></label>' +
+    '<label for="csv-lastname"></label>' +
     '<input type="text" name="csv-lastname" />' +
     '</form>' +
     '</div>'
