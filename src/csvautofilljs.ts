@@ -10,7 +10,6 @@ interface ICsvGenerateFile {
   key: string
   value: string
   label: string
-  guide?: string | undefined
 }
 
 interface ICsvUpload {
@@ -22,7 +21,6 @@ interface ICsvUploadFile {
   key: string
   value: string
   label: string
-  guide?: string
   disabled: boolean
 }
 
@@ -55,32 +53,25 @@ export const checkUniqueCharCsv = (text: string) => {
   } else if (text && (text.indexOf(',') > 0 || text.indexOf('\r') > 0 || text.indexOf('\n') > 0)) {
     str = '"' + text + '"'
   } else if (!text) {
-    return ''
+    str = ''
   }
 
   return str
 }
 
-export const arrayToCsv = (arrayValue: ICsvGenerateFile[], prefix: string, haveGuide: boolean) => {
+export const arrayToCsv = (arrayValue: ICsvGenerateFile[], prefix: string) => {
   const key = 'key'
   const label = 'label'
   const value = 'value'
-  const guide = 'guide'
   let delimiter = navigator.platform.toLowerCase().match(/(win)/i) ? ';' : ','
   let newLine = '\r\n'
-  let csvContent = haveGuide
-    ? key + delimiter + label + delimiter + value + delimiter + guide + newLine
-    : key + delimiter + label + delimiter + value + newLine
+  let csvContent = key + delimiter + label + delimiter + value + newLine
   arrayValue.forEach((val, id) => {
     csvContent += checkUniqueCharCsv(val[key].substr(prefix.length))
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[label])
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[value])
-    if (haveGuide) {
-      csvContent += delimiter
-      csvContent += checkUniqueCharCsv(val[guide] as string)
-    }
     if (id !== arrayValue.length - 1) {
       csvContent += newLine
     }
@@ -97,11 +88,7 @@ export const parseData = (content: File) => {
     reader.readAsText(content),
       (reader.onload = () => {
         const resultReader = reader.result as string
-        const lastKeyHeader =
-          resultReader && resultReader.indexOf('guide')
-            ? resultReader.indexOf('guide')
-            : resultReader.indexOf('value')
-        const resultSubs = resultReader.substring(0, lastKeyHeader)
+        const resultSubs = resultReader.substring(0, resultReader.indexOf('value'))
         delimiter = resultSubs.substring(4, 3)
         parse(content, {
           delimiter: delimiter,
@@ -120,36 +107,22 @@ export const CsvAutoFill = {
     const prefix = param && param.prefix ? param.prefix : 'csv-'
     const csvListsKey = Array.from(document.querySelectorAll('[name^="' + prefix + '"]'))
     const csvArray: ICsvGenerateFile[] = []
-    let haveGuide = false
 
     csvListsKey.forEach(list => {
-      const label = document.querySelector(
-        'label[for="' + list.getAttribute('name') + '"]:not([hidden])'
-      )
+      const label = document.querySelector('label[for="' + list.getAttribute('name') + '"]')
       const labelText = label && label.textContent ? label.textContent : ''
-      const guide = document.querySelector('label[for="' + list.getAttribute('name') + '"][hidden]')
-      const guideText = guide && guide.textContent ? guide.textContent : ''
 
       const csvList = {
         key: list.getAttribute('name')!,
         label: labelText,
-        value: '',
-        guide: guideText
-      }
-
-      if (
-        !haveGuide &&
-        list &&
-        (list.getAttribute('type') === 'radio' || list.tagName.toLowerCase() === 'select')
-      ) {
-        haveGuide = true
+        value: ''
       }
 
       if (!objectInArrayIsExist(csvArray, csvList)) {
         csvArray.push(csvList)
       }
     })
-    const csvContent = arrayToCsv(csvArray, prefix, haveGuide)
+    const csvContent = arrayToCsv(csvArray, prefix)
 
     saveAs(new Blob([csvContent], { type: 'text/csv' }), `${fileName}.csv`)
   },
@@ -157,7 +130,7 @@ export const CsvAutoFill = {
   uploadFile: async function(param: ICsvUpload) {
     const csvPrefix = param && param.prefix ? param.prefix : 'csv-'
     const f: File = param.file
-    let resultCsv: Array<ICsvUploadFile> = []
+    let resultCsv: Array<ICsvUploadFile> = [] as any
     let result
 
     if (
