@@ -67,15 +67,15 @@ export const arrayToCsv = (arrayValue: ICsvGenerateFile[], prefix: string, haveG
   let delimiter = navigator.platform.toLowerCase().match(/(win)/i) ? ';' : ','
   let newLine = '\r\n'
   let csvContent = haveGuide
-    ? key + delimiter + label + delimiter + value + newLine
-    : key + delimiter + label + delimiter + value + delimiter + guide + newLine
+    ? key + delimiter + label + delimiter + value + delimiter + guide + newLine
+    : key + delimiter + label + delimiter + value + newLine
   arrayValue.forEach((val, id) => {
     csvContent += checkUniqueCharCsv(val[key].substr(prefix.length))
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[label])
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[value])
-    if (haveGuide && val[guide]) {
+    if (haveGuide) {
       csvContent += delimiter
       csvContent += checkUniqueCharCsv(val[guide] as string)
     }
@@ -95,7 +95,11 @@ export const parseData = (content: File) => {
     reader.readAsText(content),
       (reader.onload = () => {
         const resultReader = reader.result as string
-        const resultSubs = resultReader.substring(0, resultReader.indexOf('value'))
+        const lastKeyHeader =
+          resultReader && resultReader.indexOf('guide')
+            ? resultReader.indexOf('guide')
+            : resultReader.indexOf('value')
+        const resultSubs = resultReader.substring(0, lastKeyHeader)
         delimiter = resultSubs.substring(4, 3)
         parse(content, {
           delimiter: delimiter,
