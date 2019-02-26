@@ -42,7 +42,7 @@ describe('CsvAutoFill', () => {
   })
 
   it('return csv file', () => {
-    expect(arrayToCsv(props.arrayCsv, props.prefix)).toBe(props.csvString)
+    expect(arrayToCsv(props.arrayCsv, props.prefix, true)).toBe(props.csvString)
   })
 
   it('return same text with the input', () => {

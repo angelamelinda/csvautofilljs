@@ -10,6 +10,7 @@ interface ICsvGenerateFile {
   key: string
   value: string
   label: string
+  guide?: string | undefined
 }
 
 interface ICsvUpload {
@@ -21,6 +22,7 @@ interface ICsvUploadFile {
   key: string
   value: string
   label: string
+  guide?: string
   disabled: boolean
 }
 
@@ -57,19 +59,26 @@ export const checkUniqueCharCsv = (text: string) => {
   return str
 }
 
-export const arrayToCsv = (arrayValue: ICsvGenerateFile[], prefix: string) => {
+export const arrayToCsv = (arrayValue: ICsvGenerateFile[], prefix: string, haveGuide: boolean) => {
   const key = 'key'
   const label = 'label'
   const value = 'value'
+  const guide = 'guide'
   let delimiter = navigator.platform.toLowerCase().match(/(win)/i) ? ';' : ','
   let newLine = '\r\n'
-  let csvContent = key + delimiter + label + delimiter + value + newLine
+  let csvContent = haveGuide
+    ? key + delimiter + label + delimiter + value + newLine
+    : key + delimiter + label + delimiter + value + delimiter + guide + newLine
   arrayValue.forEach((val, id) => {
     csvContent += checkUniqueCharCsv(val[key].substr(prefix.length))
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[label])
     csvContent += delimiter
     csvContent += checkUniqueCharCsv(val[value])
+    if (haveGuide && val[guide]) {
+      csvContent += delimiter
+      csvContent += checkUniqueCharCsv(val[guide] as string)
+    }
     if (id !== arrayValue.length - 1) {
       csvContent += newLine
     }
@@ -105,20 +114,36 @@ export const CsvAutoFill = {
     const prefix = param && param.prefix ? param.prefix : 'csv-'
     const csvListsKey = Array.from(document.querySelectorAll('[name^="' + prefix + '"]'))
     const csvArray: ICsvGenerateFile[] = []
+    let haveGuide = false
 
     csvListsKey.forEach(list => {
-      const label = document.querySelector('label[for="' + list.getAttribute('name') + '"]')
+      const label = document.querySelector(
+        'label[for="' + list.getAttribute('name') + '"]:not([hidden])'
+      )
       const labelText = label && label.textContent ? label.textContent : ''
+      const guide = document.querySelector('label[for="' + list.getAttribute('name') + '"][hidden]')
+      const guideText = guide && guide.textContent ? guide.textContent : ''
+
       const csvList = {
         key: list.getAttribute('name')!,
         label: labelText,
-        value: ''
+        value: '',
+        guide: guideText
       }
+
+      if (
+        !haveGuide &&
+        list &&
+        (list.getAttribute('type') === 'radio' || list.tagName.toLowerCase() === 'select')
+      ) {
+        haveGuide = true
+      }
+
       if (!objectInArrayIsExist(csvArray, csvList)) {
         csvArray.push(csvList)
       }
     })
-    const csvContent = arrayToCsv(csvArray, prefix)
+    const csvContent = arrayToCsv(csvArray, prefix, haveGuide)
 
     saveAs(new Blob([csvContent], { type: 'text/csv' }), `${fileName}.csv`)
   },

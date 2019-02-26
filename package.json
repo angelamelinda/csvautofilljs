@@ -1,6 +1,6 @@
 {
   "name": "csvautofilljs",
-  "version": "1.0.9-alpha",
+  "version": "1.0.9-alpha.1",
   "description": "csvautofilljs is a front-end library package that serves one purpose: fill the form without have to re-type the same value over and over again.",
   "keywords": [
     "csv",
