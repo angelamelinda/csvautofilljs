@@ -38,7 +38,7 @@ export const objectInArrayIsExist = (
 export const checkUniqueCharCsv = (text: string) => {
   let str = text
 
-  if (text.indexOf('"') > 0) {
+  if (text && text.indexOf('"') > 0) {
     let newStr = []
     newStr.push('"')
     let temp = text.split('"')
@@ -52,8 +52,10 @@ export const checkUniqueCharCsv = (text: string) => {
     }
     newStr.push('"')
     str = newStr.join('')
-  } else if (text.indexOf(',') > 0 || text.indexOf('\r') > 0 || text.indexOf('\n') > 0) {
+  } else if (text && (text.indexOf(',') > 0 || text.indexOf('\r') > 0 || text.indexOf('\n') > 0)) {
     str = '"' + text + '"'
+  } else if (!text) {
+    return ''
   }
 
   return str
