@@ -5,6 +5,7 @@ import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 import builtins from 'rollup-plugin-node-builtins'
+import { terser } from 'rollup-plugin-terser'
 
 const pkg = require('./package.json')
 
@@ -34,6 +35,7 @@ export default {
     resolve(),
     builtins(),
     // Resolve source maps to the original source
-    sourceMaps()
+    sourceMaps(),
+    terser()
   ]
 }

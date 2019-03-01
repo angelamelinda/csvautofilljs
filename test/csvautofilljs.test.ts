@@ -2,8 +2,7 @@ import {
   CsvAutoFill,
   objectInArrayIsExist,
   arrayToCsv,
-  checkUniqueCharCsv,
-  parseData
+  checkUniqueCharCsv
 } from '../src/csvautofilljs'
 import * as helper from '../helper'
 import * as FileSaver from 'file-saver'
