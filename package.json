@@ -1,6 +1,6 @@
 {
   "name": "csvautofilljs",
-  "version": "1.0.15-alpha.1",
+  "version": "1.0.15-alpha.2",
   "description": "csvautofilljs is a front-end library package that serves one purpose: fill the form without have to re-type the same value over and over again.",
   "keywords": [
     "csv",
@@ -94,7 +94,7 @@
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
     "@types/file-saver": "^2.0.0",
-    "@types/jest": "^24.0.9",
+    "@types/jest": "^24.0.11",
     "@types/jsdom": "^12.2.2",
     "@types/lodash.some": "^4.6.5",
     "@types/node": "^11.9.5",
@@ -106,7 +106,7 @@
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.0.1",
-    "jest": "^24.1.0",
+    "jest": "^24.4.0",
     "jest-config": "^24.1.0",
     "jsdom": "^13.2.0",
     "lint-staged": "^8.1.4",
